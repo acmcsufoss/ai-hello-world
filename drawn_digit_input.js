@@ -1,4 +1,5 @@
 export function createDrawnDigitInput({
+  root,
   width,
   height,
   size,
@@ -70,13 +71,8 @@ export function createDrawnDigitInput({
   canvas.width = width;
   canvas.height = height;
   canvas.style.border = "1px solid black";
-  canvas.addEventListener("click", () => {
-    if (!isAnimating) {
-      animate();
-    }
-  });
   let isDrawing = false;
-  document.body.addEventListener("mousedown", (event) => {
+  document.body.addEventListener("mousedown", () => {
     isDrawing = true;
   });
   document.body.addEventListener("mouseup", () => {
@@ -95,24 +91,27 @@ export function createDrawnDigitInput({
   });
 
   const predictButton = document.createElement("button");
+  predictButton.classList.add("button");
   predictButton.textContent = "Predict";
   predictButton.addEventListener("click", () => {
     updateOutput();
   });
   const clearButton = document.createElement("button");
+  clearButton.classList.add("button");
   clearButton.textContent = "Clear";
   clearButton.addEventListener("click", () => {
     data.forEach((row) => row.fill(0));
   });
-  const outputContainer = document.createElement("div");
+  const outputContainer = document.createElement("p");
+  outputContainer.textContent =
+    '💡 Hint: Draw a digit on the canvas below and click the "Predict" button. See what happens!';
 
   // Append the elements to the body.
-  document.body.appendChild(predictButton);
-  document.body.appendChild(clearButton);
-  document.body.appendChild(document.createElement("br"));
-  document.body.appendChild(canvas);
-  document.body.appendChild(outputContainer);
-}
+  root.appendChild(predictButton);
+  root.appendChild(clearButton);
+  root.appendChild(outputContainer);
+  root.appendChild(canvas);
 
-// TODO: Allow user to edit input tensor by drawing on the canvas into 28x28 cells.
-// TODO: Allow user to clear the canvas.
+  // Kick off animation loop.
+  animate();
+}

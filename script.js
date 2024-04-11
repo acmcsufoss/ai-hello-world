@@ -38,6 +38,7 @@ async function run() {
     height: 400,
     size: 28,
     cellColor: "rgb(17, 212, 177)",
+    root: document.querySelector(".drawn-digit-input-container"),
     predict(data) {
       const tensor = tf.tensor(data).reshape([1, 28, 28, 1]);
       const prediction = model.predict(tensor);
@@ -60,8 +61,6 @@ async function run() {
 
   await showAccuracy(model, data);
   await showConfusion(model, data);
-
-  // TODO: Enable live canvas prediction.
 }
 
 document.addEventListener("DOMContentLoaded", run);

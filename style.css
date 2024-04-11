@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: mintcream;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(4, 58, 48);
+  }
+}
+
+main {
+  width: 50ch;
+
+  @media (prefers-color-scheme: dark) {
+    color: mintcream;
+  }
+}
+
+a {
+  color: #1b3555;
+
+  @media (prefers-color-scheme: dark) {
+    color: #3e74b6;
+  }
+}
+
+.button {
+  background-color: #1b3555;
+  color: mintcream;
+  border-radius: 4px;
+  border: 2px solid #041e3e;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #3e74b6;
+}
+
+.button:focus {
+  outline: mintcream;
+}
+
+canvas {
+  background-color: white;
+}
+
+footer p {
+  text-align: center;
+}
