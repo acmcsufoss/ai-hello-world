@@ -40,12 +40,15 @@ async function run() {
     cellColor: "rgb(17, 212, 177)",
     root: document.querySelector(".drawn-digit-input-container"),
     predict(data) {
+      // data is the 2d array representing the state of the canvas with the drawn digit.
+      // tensor is the TensorFlow tensor representing the data.
       const tensor = tf.tensor(data).reshape([1, 28, 28, 1]);
-      const prediction = model.predict(tensor);
-      const pred = prediction.argMax(-1).dataSync()[0];
-      prediction.dispose();
+      // output is the digit prediction.
+      const output = model.predict(tensor);
+      const prediction = output.argMax(-1).dataSync()[0];
+      output.dispose();
       tensor.dispose();
-      return pred;
+      return prediction;
     },
   });
 
