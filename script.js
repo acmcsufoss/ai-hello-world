@@ -1,4 +1,5 @@
 import { MnistData } from "./data.js";
+import { createCanvas } from "./canvas.js";
 
 async function showExamples(data) {
   // Create a container in the visor
@@ -31,6 +32,19 @@ async function showExamples(data) {
 }
 
 async function run() {
+  // Create the canvas element.
+  createCanvas({
+    width: 400,
+    height: 400,
+    cellSize: 28,
+    cellColor: "gray",
+    handleChange(tensor) {
+      console.log(tensor);
+      // TODO: Use the tensor as input to the model. Return the prediction.
+    },
+  });
+
+  // Load and show the data.
   const data = new MnistData();
   await data.load();
   await showExamples(data);
@@ -42,6 +56,8 @@ async function run() {
 
   await showAccuracy(model, data);
   await showConfusion(model, data);
+
+  // TODO: Enable live canvas prediction.
 }
 
 document.addEventListener("DOMContentLoaded", run);
