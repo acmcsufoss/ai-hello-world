@@ -1,5 +1,5 @@
 import { MnistData } from "./data.js";
-import { createCanvas } from "./canvas.js";
+import { createDrawnDigitInput } from "./drawn_digit_input.js";
 
 async function showExamples(data) {
   // Create a container in the visor
@@ -33,14 +33,18 @@ async function showExamples(data) {
 
 async function run() {
   // Create the canvas element.
-  createCanvas({
+  createDrawnDigitInput({
     width: 400,
     height: 400,
-    cellSize: 28,
-    cellColor: "gray",
-    handleChange(tensor) {
-      console.log(tensor);
-      // TODO: Use the tensor as input to the model. Return the prediction.
+    size: 28,
+    cellColor: "rgb(17, 212, 177)",
+    predict(data) {
+      const tensor = tf.tensor(data).reshape([1, 28, 28, 1]);
+      const prediction = model.predict(tensor);
+      const pred = prediction.argMax(-1).dataSync()[0];
+      prediction.dispose();
+      tensor.dispose();
+      return pred;
     },
   });
 
